@@ -3,8 +3,12 @@
     Created on : 19-may-2023, 14:05:37
     Author     : BRAYAN
 --%>
-
+<%@page import="modelo.Libro"%>
+<%@page import="modelo.Reserva"%>
+<%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<jsp:useBean id="ldao" class="modeloDAO.LibroDAO" scope="session"/>
+<jsp:useBean id="dao" class="modeloDAO.ReservaDao" scope="session"/>
 <!DOCTYPE html>
 <html>
     <head>
@@ -103,32 +107,16 @@
 
             <div class="list">
                 <strong>Mis libros reservados</strong>
+                <%ArrayList<Reserva> rvList=dao.listarReserva(session.getAttribute("correo").toString());%>
                 <ol class="alternating-colors" id="list">
+                    <%for(Reserva rv : rvList){
+                        Libro lb=ldao.list(rv.getLibroId());%>
                     <li>
-                        <strong>Libro 1</strong>
-                        <p>Autor: Apellido, Nombre</p>
+                        <strong><%= lb.getTitulo() %></strong>
+                        <p>Autor: <%= lb.getAutor()%><br>Fecha de Vencimiento: <%= rv.getFechaLimite().toString()%></p>
                         <button type="button" onclick="toHideAndAlert(0)">Cancelar Reserva</button>
                     </li>
-                    <li>
-                        <strong>Libro 2</strong>
-                        <p>Autor: Apellido, Nombre</p>
-                        <button type="button" onclick="toHideAndAlert(1)"> Cancelar Reserva</button>
-                    </li>
-                    <li>
-                        <strong>Libro 3</strong>
-                        <p>Autor: Apellido, Nombre</p>
-                        <button type="button" onclick="toHideAndAlert(2)">Cancelar Reserva</button>
-                    </li>
-                    <li>
-                        <strong>Libro 4</strong>
-                        <p>Autor: Apellido, Nombre</p>
-                        <button type="button" onclick="toHideAndAlert(3)">Cancelar Reserva</button>
-                    </li>
-                    <li>
-                        <strong>Libro 5</strong>
-                        <p>Autor: Apellido, Nombre</p>
-                        <button type="button" onclick="toHideAndAlert(4)">Cancelar Reserva</button>
-                    </li>
+                    <%}%>
                 </ol>
             </div>
 
