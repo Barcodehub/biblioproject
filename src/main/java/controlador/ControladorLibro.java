@@ -7,6 +7,8 @@ package controlador;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -25,7 +27,7 @@ public class ControladorLibro extends HttpServlet {
     Libro l=new Libro();
     int r;
     
-    String listar="paginas/ConsultarLibro.jsp";
+    String listar="vistas/listarLibro.jsp";
     String add="vistas/addlibro.jsp";
     String edit="vistas/editLibro.jsp";
     int id;
@@ -46,10 +48,10 @@ public class ControladorLibro extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Controlador2</title>");            
+            out.println("<title>Servlet ControladorLibro</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet Controlador2 at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ControladorLibro at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -73,10 +75,27 @@ public class ControladorLibro extends HttpServlet {
             String titulo=request.getParameter("txttitulo");
             String autor=request.getParameter("txtautor");
             String codigo=request.getParameter("txtcodigo");
+            String fechaStr = request.getParameter("txtfecha"); // Supongamos que el parámetro se llama "txtfecha"
+
+            
+            
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    Date fecha = null;
+    try {
+         java.util.Date utilDate = dateFormat.parse(fechaStr);
+//    fecha = new Date(utilDate.getTime());
+// fecha = (Date) dateFormat.parse(fechaStr);
+fecha = new Date(dateFormat.parse(fechaStr).getTime());
+    } catch (ParseException e) {
+        System.out.println("errorrrororororor");
+    }
+            
+            
             
             l.setTitulo(titulo);
             l.setAutor(autor);
             l.setCodigo(codigo);
+            l.setFecha(fecha);
             dao.add(l);
             acceso=listar;
         }
@@ -91,11 +110,30 @@ public class ControladorLibro extends HttpServlet {
             String codigo=request.getParameter("txtcodigo");
             
             
+            
+           String fechaStr = request.getParameter("txtfecha"); // Supongamos que el parámetro se llama "txtfecha"
+
+            
+            
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    Date fecha = null;
+    try {
+         java.util.Date utilDate = dateFormat.parse(fechaStr);
+//    fecha = new Date(utilDate.getTime());
+// fecha = (Date) dateFormat.parse(fechaStr);
+fecha = new Date(dateFormat.parse(fechaStr).getTime());
+    } catch (ParseException e) {
+        System.out.println("errorrrororororor");
+    }
+           
+            
+            
+            
             l.setId(id);
             l.setTitulo(titulo);
             l.setAutor(autor);
             l.setCodigo(codigo);
-            
+            l.setFecha(fecha);
             dao.edit(l);
             acceso=listar;
         }

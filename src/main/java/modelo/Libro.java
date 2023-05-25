@@ -69,9 +69,7 @@ public class Libro {
         this.fecha = fecha;
     }
 
-    public void setFecha(String fecha) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+   
     
     
     

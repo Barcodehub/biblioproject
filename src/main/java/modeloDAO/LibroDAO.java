@@ -41,6 +41,7 @@ public class LibroDAO implements  CRUDLIBRO{
                 lib.setTitulo(rs.getString("Titulo"));
                 lib.setAutor(rs.getString("Autor"));
                 lib.setCodigo(rs.getString("Codigo"));
+                lib.setFecha(rs.getDate("Fecha"));
                list.add(lib);
             }
         } catch (Exception e) {
@@ -60,21 +61,27 @@ public class LibroDAO implements  CRUDLIBRO{
                 p.setTitulo(rs.getString("Titulo"));
                 p.setAutor(rs.getString("Autor"));
                 p.setCodigo(rs.getString("Codigo")); 
-                
+                p.setFecha(rs.getDate("Fecha"));
             }
         } catch (Exception e) {
         }
         return p;
     }
-
+// String sql="insert into libro(Titulo, Autor, Codigo, Fecha)values('"+lib.getTitulo()+"','"+lib.getAutor()+"','"+lib.getCodigo()+"','"+new java.sql.Date(lib.getFecha().getTime())+"')";
     @Override
     public boolean add(Libro lib) {
-       String sql="INSERT INTO libro(Titulo, Autor, Codigo, Fecha) VALUES (?, ?, ?, ?)";
-        try {
+    String sql="insert into libro(Titulo, Autor, Codigo, Fecha)values('"+lib.getTitulo()+"','"+lib.getAutor()+"','"+lib.getCodigo()+"','"+new java.sql.Date(lib.getFecha().getTime())+"')";
+//         String sql = "INSERT INTO libro (Titulo, Autor, Codigo, Fecha) VALUES (?, ?, ?, ?)";
+        
+       try {
+           
             con=cn.getConnection();
             ps=con.prepareStatement(sql);
-            ps.executeUpdate();
+            ps.execute();
+        ps.executeUpdate();
+
         } catch (Exception e) {
+              System.out.println("Error al agregar el libro: " + e.getMessage());
         }
        return false;
     }
@@ -83,6 +90,8 @@ public class LibroDAO implements  CRUDLIBRO{
     public boolean edit(Libro lib) {
         String sql="update libro set Titulo='"+lib.getTitulo()+"',Autor='"+lib.getAutor()+"',Codigo='"+lib.getCodigo()+"',Fecha='"+lib.getFecha()+"'where Id="+lib.getId();
         try {
+            
+            //new java.sql.Date(lib.getFecha()t().getTime()));
             con=cn.getConnection();
             ps=con.prepareStatement(sql);
             ps.executeUpdate();

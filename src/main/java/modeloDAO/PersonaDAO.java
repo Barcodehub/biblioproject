@@ -137,31 +137,14 @@ public class PersonaDAO implements Validar, CRUD{
 
     @Override
     public boolean add(Persona per) {
-         boolean rta=false;
-       String sql="INSERT INTO persona(Nombres, Correo, Password) "+ " VALUES (?,?,?,?,?)";
+        boolean rta=false;
+       //String sql="INSERT INTO persona(Nombres, Correo, Password) "+ " VALUES (?,?,?)";
+       String sql="insert into persona(Nombres, Correo, Password)values('"+per.getNom()+"','"+per.getCorreo()+"','"+hashPassword(per.getPass())+"')";
         try {
             con=cn.getConnection();
             ps=con.prepareStatement(sql);
-       
-        ps.setInt(1, p.getId());
-        ps.setString(2, p.getNom());
-        ps.setString(4, p.getCorreo());
-        ps.setString(5, p.getPass());
-            
-            
         ps.execute();
-        rta=true;
-                
-        // 5. Cerrar recursos y conexion        
-        ps.close();
-        con.close();
-                
-        ps=null;
-        con=null;
-        return rta;
-        
-        
-            //ps.executeUpdate();
+       ps.executeUpdate();
         } catch (Exception e) {
         }
        return false;
@@ -169,7 +152,7 @@ public class PersonaDAO implements Validar, CRUD{
 
     @Override
     public boolean edit(Persona per) {
-        String sql="update persona set Nombres='"+per.getNom()+"',Correo='"+per.getCorreo()+"'where Id="+per.getId();
+        String sql="update persona set Nombres='"+per.getNom()+"',Correo='"+per.getCorreo()+"',Password='"+hashPassword(per.getPass())+"'where Id="+per.getId();
         try {
             con=cn.getConnection();
             ps=con.prepareStatement(sql);

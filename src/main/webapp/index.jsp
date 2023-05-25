@@ -34,7 +34,7 @@
                 
                 <div class="form-group">
                     <label>Password:</label>
-                    <input class="form-control" type="text" name="txtPass" placeholder="Ingrese Contraseña">
+                    <input class="form-control" type="password" name="txtPass" placeholder="Ingrese Contraseña">
                 </div>
                 
                 <div class="form-group">
@@ -42,9 +42,11 @@
                     <input class="form-control" type="text" name="txtnom" placeholder="Ingrese Nombres">
                 </div>
 
+           <input class="btn btn-danger btn-block" type="submit" name="accion" value="Ingresar">
+           
+           <a class="btn btn-danger btn-block" href="register.jsp">Registrarse</a>
                 
-                
-                <input class="btn btn-danger btn-block" type="submit" name="accion" value="Ingresar">
+               
             </form>
         </div>
 

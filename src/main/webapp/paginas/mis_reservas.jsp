@@ -42,7 +42,7 @@
                             <li><a href="#">
                                     <i class="fas fa-home"></i> Mis Reservas</a>
                             </li>
-                            <li><a href="../Principal.jsp">
+                            <li><a href="ConsultarLibro.jsp">
                                     <i class="fas fa-home"></i> Consultar Libro</a>
                             </li>
                             <li><a href="../paginas/registerBook.jsp">

@@ -25,8 +25,8 @@ public class Controlador2 extends HttpServlet {
     PersonaDAO dao=new PersonaDAO();
     Persona p=new Persona();
     int r;
-    
-    String listar="vistas/listar.jsp";
+//    vistas/listar.jsp
+    String listar="/vistas/listar.jsp";
     String add="vistas/add.jsp";
     String edit="vistas/edit.jsp";
     int id;
@@ -73,8 +73,10 @@ public class Controlador2 extends HttpServlet {
         else if(action.equalsIgnoreCase("Agregar")){
             String nom=request.getParameter("txtnom");
             String correo=request.getParameter("txtCorreo");
+            String pass=request.getParameter("txtPass");
             p.setNom(nom);
             p.setCorreo(correo);
+            p.setPass(pass);
             dao.add(p);
             acceso=listar;
         }
@@ -86,9 +88,11 @@ public class Controlador2 extends HttpServlet {
             id=Integer.parseInt(request.getParameter("txtid"));
             String nom=request.getParameter("txtnom");
             String correo=request.getParameter("txtCorreo");
+            String pass =request.getParameter("txtPass");
             p.setId(id);
             p.setNom(nom);
             p.setCorreo(correo);
+             p.setPass(pass); //falta por hashear
             dao.edit(p);
             acceso=listar;
         }
