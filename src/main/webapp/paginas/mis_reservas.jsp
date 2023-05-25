@@ -108,6 +108,7 @@
             <div class="list">
                 <strong>Mis libros reservados</strong>
                 <%ArrayList<Reserva> rvList=dao.listarReserva(session.getAttribute("correo").toString());%>
+                <%if(rvList!=null){%>
                 <ol class="alternating-colors" id="list">
                     <%for(Reserva rv : rvList){
                         Libro lb=ldao.list(rv.getLibroId());%>
@@ -118,6 +119,7 @@
                     </li>
                     <%}%>
                 </ol>
+                <%}%>
             </div>
 
 
