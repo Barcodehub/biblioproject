@@ -31,6 +31,9 @@ public class ReservaDao {
                 ps.setDate(3, rv.getFechaLimite());
                 ps.setString(4, rv.getEstado());
                 ps.executeUpdate();
+                sql="UPDATE libro SET id=id+1 WHERE id="+rv.getLibroId();
+                ps=cnx.prepareStatement(sql);
+                ps.executeUpdate();
                 return true;
             } catch (SQLException ex) {
                 System.out.println(ex.getMessage());
