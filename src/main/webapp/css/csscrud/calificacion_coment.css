@@ -1,0 +1,138 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+body {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 200px;
+    gap: 5px;
+    background-image: url(img/UFPSpaisaje.jpg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.contenedor {
+    background-color: antiquewhite;
+    width: 600px;
+    height: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 20px;
+}
+
+.contenedor-2 {
+    width: 600px;
+    height: auto;
+    background-color: antiquewhite;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 30px 20px 30px 20px;
+    gap: 20px;
+    text-transform: capitalize;
+    border-radius: 20px;
+}
+
+.comentario {
+    background-color: aliceblue;
+    width: 100%;
+    height: 60px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0 0 0 20px;
+    border-radius: 20px;
+    color: black;
+}
+
+.contenedor-agg-com {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.imagen.usuario {
+    width: 50px;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+img {
+    width: 50px;
+}
+
+.input-com {
+    width: 500px;
+    height: 100px;
+    background: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: baseline;
+    gap: 5px;
+}
+
+#nuevoComentario {
+    outline: none;
+    border: 0;
+    width: 100%;
+    height: 50px;
+    padding: 0px 10px 0px 10px;
+    font-size: 15px;
+    background-color: transparent;
+    color: black;
+    border-bottom: 2px solid rgba(10, 17, 24);
+    transition-duration: 200ms;
+}
+
+#nuevoComentario::placeholder {
+    color: black;
+}
+
+#nuevoComentario:focus {
+    border-bottom: 2px solid red;
+}
+
+.btn-agg {
+    height: 60px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0px 5px 0px 0px;
+}
+
+button {
+    padding: 12px 20px 12px 20px;
+    border-radius: 20px;
+    border: 0;
+    outline: none;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.close {
+    font-size: 12px;
+    position: absolute;
+    right: 150px;
+    width: 20px;
+    z-index: 20;
+    transition-duration: 200ms;
+    display: block;
+    cursor: pointer;
+    color: red;
+}

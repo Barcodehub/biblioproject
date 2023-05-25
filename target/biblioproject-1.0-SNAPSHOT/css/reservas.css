@@ -1,0 +1,62 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+button{
+float: right;
+}
+
+.list {
+    font-family: 'Space Mono', monospace;
+    display: flex;
+    flex-direction: column;
+    padding: 32px;
+    margin: 60px;
+    margin-left: 60px;
+    border: 1px solid #eee;
+    box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+* {
+    /*make it sexy*/
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizelegibility;
+    letter-spacing: -0.25px;
+}
+
+ol.alternating-colors  {
+    padding-left: 50px;
+}
+
+ol.alternating-colors li {
+    color: #4F4F4F;
+    padding-left: 16px;
+    margin-top: 24px;
+    position: relative;
+    font-size: 16px;
+    line-height: 20px;
+
+}
+
+ol.alternating-colors li:before {
+    content: '';
+    display: block;
+    height: 42px;
+    width: 42px;
+    border-radius: 50%;
+    border: 2px solid #ddd;
+    position: absolute;
+    /* yeah, you have to manually position it based on the text size, line height, etc. (in the parent li style). it's not the smarest solution*/
+    top: -11px;
+    left: -33px;
+}
+
+ol.alternating-colors strong {
+    color: #292929;
+}
+
+ol.alternating-colors li:nth-child(odd):before{
+        border-color: red;
+}
+ol.alternating-colors li:nth-child(even):before{
+    border-color: #a2aca1;
+}

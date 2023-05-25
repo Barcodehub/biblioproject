@@ -1,0 +1,11 @@
+controlador\ControladorLibro.class
+Interfaces\Validar.class
+modeloDAO\LibroDAO.class
+Interfaces\CRUD.class
+modeloDAO\PersonaDAO.class
+modelo\Persona.class
+Config\Conexion.class
+controlador\Controlador2.class
+modelo\Libro.class
+controlador\Controlador.class
+Interfaces\CRUDLIBRO.class
