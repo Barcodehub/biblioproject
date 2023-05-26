@@ -65,9 +65,7 @@
                     </nav>
                 </div>
 
-                <div id="ctn-icon-search">
-                    <i class="fas fa-search" id="icon-search"></i>
-                </div>
+                
             </div>
 
             <div id="icon-menu">
@@ -75,10 +73,7 @@
             </div>
         </header>
 
-        <div id="ctn-bars-search">
-            <input type="text" id="inputSearch" placeholder="¿Qué deseas buscar?" />
-        </div>
-        <div id="cover-ctn-search"></div>
+       
 
         <!--Portada-->
 

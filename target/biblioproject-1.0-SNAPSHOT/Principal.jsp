@@ -78,9 +78,6 @@
 
             </div>
 
-            <div id="ctn-icon-search">
-                <i class="fas fa-search" id="icon-search"></i>
-            </div>
 
         </div>
 
@@ -89,25 +86,6 @@
         </div>
 
     </header>
-
-
-    <div id="ctn-bars-search">
-        <input type="text" id="inputSearch" placeholder="¿Qué deseas buscar?">
-    </div>
-
-    <ul id="box-search">
-        <li><a href="paginas/libros_ejemplos.jsp"><i class="fas fa-search"></i>Libro 1</a></li>
-        <li><a href="paginas/libros_ejemplos.jsp"><i class="fas fa-search"></i>Libro 2</a></li>
-        <li><a href="paginas/libros_ejemplos.jsp"><i class="fas fa-search"></i>Libro 3</a></li>
-        <li><a href="paginas/libros_ejemplos.jsp"><i class="fas fa-search"></i>Libro 4</a></li>
-        <li><a href="paginas/libros_ejemplos.jsp"><i class="fas fa-search"></i>Libro 5</a></li>
-        <li><a href="paginas/libros_ejemplos.jsp"><i class="fas fa-search"></i>Libro 6</a></li>
-        <li><a href="paginas/libros_ejemplos.jsp"><i class="fas fa-search"></i>Libro 7</a></li>
-        <li><a href="paginas/libros_ejemplos.jsp"><i class="fas fa-search"></i>Libro 8</a></li>
-    </ul>
-
-    <div id="cover-ctn-search"></div>
-
 
     <!--Portada-->
 

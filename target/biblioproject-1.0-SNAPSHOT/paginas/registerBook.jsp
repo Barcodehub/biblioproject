@@ -15,7 +15,9 @@
         <link rel="stylesheet" href="../css/index_barra_busqueda.css" />
         <link rel="stylesheet" href="../css/style_registerBook.css" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-   
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+      
         <script src="https://kit.fontawesome.com/41bcea2ae3.js" crossorigin="anonymous"></script>
         <meta name="viewport"
               content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
@@ -40,7 +42,7 @@
 
                             </li>
                             <li>
-                                <a href="../Principal.jsp">
+                                <a href="ConsultarLibro.jsp">
                                     <i class="fas fa-home"></i> Consultar Libro</a>
                             </li>
                             <li><a href="#">
@@ -63,9 +65,7 @@
                     </nav>
                 </div>
 
-                <div id="ctn-icon-search">
-                    <i class="fas fa-search" id="icon-search"></i>
-                </div>
+                
             </div>
 
             <div id="icon-menu">
@@ -73,10 +73,7 @@
             </div>
         </header>
 
-        <div id="ctn-bars-search">
-            <input type="text" id="inputSearch" placeholder="¿Qué deseas buscar?" />
-        </div>
-        <div id="cover-ctn-search"></div>
+       
 
         <!--Portada-->
 
@@ -96,34 +93,23 @@
             <main class="contenedor sombra">
                 <h2 class="title">Registrar Libro</h2>
 
-                <form class="formulario">
-                    <legend>
-                        A continuación, rellene los datos del libro a registrar
-                    </legend>
-                    <div class="contenedor-campos">
-                        <div class="campo">
-                            <label for="titulo">Título:</label>
-                            <input type="text" id="titulo" name="titulo" required />
-                        </div>
-
-                        <div class="campo">
-                            <label for="autor">Autor:</label>
-                            <input type="text" id="autor" name="autor" required />
-                        </div>
-
-                        <div class="campo">
-                            <label for="codigo">Codigo:</label>
-                            <input type="text" id="codigo" name="editorial" required />
-                        </div>
-
-                        <div class="campo">
-                            <label for="fecha_publicacion">Fecha de Publicación:</label>
-                            <input type="date" id="fecha_publicacion" name="fecha_publicacion" required />
-                        </div>
-                    </div>
-                    <div class="enviar">
-                        <input type="submit" value="Registrar" />
-                    </div>
+                <form action="../ControladorLibro">                  
+                    Titulo <br>
+                    <input class="form-control" type="text" name="txttitulo"><br>
+                    
+                    Autor: <br>
+                    <input class="form-control" type="text" name="txtautor"><br>
+                    
+                    Codigo: <br>
+                    <input class="form-control" type="text" name="txtcodigo"><br>
+                    
+                    Fecha: <br>
+                    <input class="form-control" type="date" name="txtfecha"><br>
+                    
+                    
+                    
+                    <input class="btn btn-primary" type="submit" name="accion" value="Agregar">
+                    <a href="../Principal.jsp">Regresar</a>
                 </form>
             </main>
 

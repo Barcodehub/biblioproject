@@ -102,78 +102,104 @@
         
         
         
-        <!--buscador-->
-        
-        
-        <div class="container">
+       <div class="container">
             <h1>Libros</h1>
-             <%
-               Conexion con=new Conexion();
+            <%
+                Conexion con = new Conexion();
                 Statement smt;
                 ResultSet rs;
-                  smt = con.getConnection().createStatement();
-                  rs = smt.executeQuery("select * from libro");
-                  
-                  %>
-            <br>
-            
-            
-            
-            <div class="container buscar">
-<!--                method="POST"-->
-               <form class="form">
-                <input class="" type="text" name="txtbuscar" >
-                <input class="btn btn" type="submit" value="Buscar" >
-            </form> 
-                
-              <%
-                    String nombuscar=request.getParameter("txtbuscar");
-                  if(nombuscar != null){
-                  smt = con.getConnection().createStatement();
-                  rs = smt.executeQuery("select * from libro where Titulo LIKE"+"'%"+nombuscar+"%'");
-                  }else{
-                  System.err.println("Error nada");
-                  }
-                  %>
-                
-                
-                
-                
-            </div>
-            
-            <br>
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th class="text-center">ID</th>
-                        <th class="text-center">TITULO</th>
-                        <th class="text-center">AUTOR</th>
-                        <th class="text-center">CODIGO</th>
-                        <th class="text-center">FECHA</th>
-                    </tr>
-                </thead>
-                <%
-                    LibroDAO dao=new LibroDAO();
-                    List<Libro>list=dao.listar();
-                    Iterator<Libro>iter=list.iterator();
-                    Libro lib=null;
-                    while(iter.hasNext()){
-                        lib=iter.next();
-                    
-                %>
-                <tbody>
-                    <tr>
-                        <td class="text-center"><%= lib.getId()%></td>
-                        <td class="text-center"><%= lib.getTitulo()%></td>
-                        <td class="text-center"><%= lib.getAutor()%></td>
-                        <td class="text-center"><%= lib.getCodigo()%></td>
-                        <td><%= lib.getFecha()%></td>
-                        
-                    </tr>
-                    <%}%>
-                </tbody>
-            </table>
+                smt = con.getConnection().createStatement();
+                rs = smt.executeQuery("select * from libro");
 
-        </div>
+            %>
+            <br>
+
+
+
+            <div class="container buscar">
+                <!--                method="POST"-->
+                <form class="form">
+                    <input class="" type="text" name="txtbuscar" >
+                    <input class="btn btn" type="submit" value="Buscar" >
+                </form> 
+
+
+
+
+
+
+
+
+                <br>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th class="text-center">ID</th>
+                            <th class="text-center">TITULO</th>
+                            <th class="text-center">AUTOR</th>
+                            <th class="text-center">CODIGO</th>
+                            <th class="text-center">FECHA</th>
+                        </tr>
+                    </thead>
+
+
+
+
+
+
+                    <%                  String nombuscar = request.getParameter("txtbuscar");
+                        if (nombuscar != null) {
+                            smt = con.getConnection().createStatement();
+                            rs = smt.executeQuery("select * from libro where Titulo LIKE" + "'%" + nombuscar + "%'");
+
+                            LibroDAO dao = new LibroDAO();
+                            List<Libro> list = dao.listar();
+                            Iterator<Libro> iter = list.iterator();
+                            Libro lib = null;
+                            while (iter.hasNext()) {
+                                lib = iter.next();
+
+                                String titulo = lib.getTitulo().toLowerCase();
+                                String palabra = nombuscar.toLowerCase();
+
+                                boolean contieneSubcadenas = true;
+                                for (int i = 1; i <= palabra.length(); i++) {
+                                    String subcadena = palabra.substring(0, i);
+                                    if (!titulo.startsWith(subcadena)) {
+                                        contieneSubcadenas = false;
+                                        break;
+                                    }
+                                }
+
+                                if (contieneSubcadenas) {
+                    %>
+                    <tbody>
+                        <tr>
+                            <td class="text-center"><%= lib.getId()%></td>
+                            <td class="text-center"><%= lib.getTitulo()%></td>
+                            <td class="text-center"><%= lib.getAutor()%></td>
+                            <td class="text-center"><%= lib.getCodigo()%></td>
+                            <td><%= lib.getFecha()%></td>
+                        </tr>
+                    </tbody>
+                    <%
+                                }
+
+                            }
+                           
+                        } else {
+                            System.err.println("Error nada");
+                        }
+                    %>
+
+
+
+
+
+
+
+                </table>
+
+            </div>
     </body>
 </html>

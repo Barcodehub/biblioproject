@@ -3,12 +3,13 @@ modeloDAO\PersonaDAO.class
 Config\Conexion.class
 controlador\Controlador2.class
 modelo\Libro.class
-com\mycompany\biblioproject\JakartaRestConfiguration.class
 com\mycompany\biblioproject\resources\JakartaEE8Resource.class
+com\mycompany\biblioproject\JakartaRestConfiguration.class
 controlador\ControladorLibro.class
 modeloDAO\LibroDAO.class
 Interfaces\CRUD.class
 modelo\Persona.class
+modeloDAO\ReservaDao.class
+modelo\Reserva.class
 controlador\Controlador.class
-.netbeans_automatic_build
 Interfaces\CRUDLIBRO.class
