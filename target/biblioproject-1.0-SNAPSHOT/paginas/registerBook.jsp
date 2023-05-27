@@ -113,11 +113,13 @@
                 </form>
             </main>
 
-            <div class="container-footer">
-                <footer>
-                    <h4>Brayan Alexander Barco Cardenas - Todos los Derechos Reservados</h4>
-                    <h4>Kevin Arturo Caballero Cano - Todos los Derechos Reservados</h4>
-                    <h4>Sergio Andres Delgado Barrera - Todos los Derechos Reservados</h4>
+            <div class="sombra container-footer">
+                <footer class="footer">
+                    <h4>Copyright © 2023 - Developed by Brayan Barco, 
+                        Sergio Delgado, Kevin Caballero 
+                        - Programa de Ingeniería de Sistemas 
+                        - UFPS - Todos los Derechos Reservados</h4>
+                    
                 </footer>
             </div>
         </div>

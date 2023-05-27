@@ -3,8 +3,8 @@ modeloDAO\PersonaDAO.class
 Config\Conexion.class
 controlador\Controlador2.class
 modelo\Libro.class
-com\mycompany\biblioproject\resources\JakartaEE8Resource.class
 com\mycompany\biblioproject\JakartaRestConfiguration.class
+com\mycompany\biblioproject\resources\JakartaEE8Resource.class
 controlador\ControladorLibro.class
 modeloDAO\LibroDAO.class
 Interfaces\CRUD.class

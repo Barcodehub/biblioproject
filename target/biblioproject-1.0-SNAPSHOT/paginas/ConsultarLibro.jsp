@@ -17,19 +17,20 @@
 <!DOCTYPE html>
 <html>
     <head>
-       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-      
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
         <link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.0/normalize.css" />
         <link rel="stylesheet" href="../css/style_index_barra_busqueda.css" />
         <link rel="stylesheet" href="../css/index_barra_busqueda.css" />
-        
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-   
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <script src="https://kit.fontawesome.com/41bcea2ae3.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
     </head>
     <body>
-        
-        
-         <header>
+
+
+        <header>
             <div class="header-content">
                 <div class="logo">
                     <a href="../Principal.jsp">
@@ -52,25 +53,23 @@
                                     <i class="fas fa-heart"></i> Registrar Libro</a>
                             </li>
                             <li>
-                            <div class="dropdown">
-                                <a style="color: gray" href="#" class="dropdown-toggle" data-toggle="dropdown">Cerrar Session </a>
+                                <div class="dropdown">
+                                    <a style="color: gray" href="#" class="dropdown-toggle" data-toggle="dropdown">Cerrar Session </a>
 
-                                <div class="dropdown-menu text-center">
-                                    <a><img src="../img/R.png" height="80" width="80"/> </a><br>
-                                    <a>${nom}</a>
-                                    <a>${correo}</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a href="../Controlador?accion=Salir" class="dropdown-item">Salir</a>
+                                    <div class="dropdown-menu text-center">
+                                        <a><img src="../img/R.png" height="80" width="80"/> </a><br>
+                                        <a>${nom}</a>
+                                        <a>${correo}</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a href="../Controlador?accion=Salir" class="dropdown-item">Salir</a>
+                                    </div>
                                 </div>
-                            </div>
-                        </li>
+                            </li>
                         </ul>
                     </nav>
                 </div>
 
-                <div id="ctn-icon-search">
-                    <i class="fas fa-search" id="icon-search"></i>
-                </div>
+
             </div>
 
             <div id="icon-menu">
@@ -78,10 +77,7 @@
             </div>
         </header>
 
-        <div id="ctn-bars-search">
-            <input type="text" id="inputSearch" placeholder="?Qu? deseas buscar?" />
-        </div>
-        <div id="cover-ctn-search"></div>
+
 
         <!--Portada-->
 
@@ -95,15 +91,15 @@
                     </p>
                 </div>
             </div>
-         </div>
-        
-        
-        
-        
-        
-        
-       <div class="container">
-            <h1>Libros</h1>
+        </div>
+
+
+
+
+
+
+        <div class="container">
+            <h1>Buscar Libros</h1>
             <%
                 Conexion con = new Conexion();
                 Statement smt;
@@ -120,16 +116,15 @@
                 <!--                method="POST"-->
                 <form class="form">
                     <input class="" type="text" name="txtbuscar" >
-                    <input class="btn btn" type="submit" value="Buscar" >
+                    <br><br>
+                    <select name="search-select">
+                        <option value="titulo">Buscar por Titulo</option>
+                        <option value="autor">Buscar por Autor</option>
+                        <option value="codigo">Buscar por Codigo</option>
+                    </select>
+                    <input class="btn-success" type="submit" value="Cargar Lista" >
+
                 </form> 
-
-
-
-
-
-
-
-
                 <br>
                 <table class="table table-bordered">
                     <thead>
@@ -147,7 +142,14 @@
 
 
 
-                    <%                  String nombuscar = request.getParameter("txtbuscar");
+                    <%  
+                        String selectedValue = request.getParameter("search-select");
+                        String opcion = "";
+
+                        String liste = request.getParameter("liste");
+                        System.out.println("liste es: " + liste);
+
+                        String nombuscar = request.getParameter("txtbuscar");
                         if (nombuscar != null) {
                             smt = con.getConnection().createStatement();
                             rs = smt.executeQuery("select * from libro where Titulo LIKE" + "'%" + nombuscar + "%'");
@@ -156,16 +158,23 @@
                             List<Libro> list = dao.listar();
                             Iterator<Libro> iter = list.iterator();
                             Libro lib = null;
+
                             while (iter.hasNext()) {
                                 lib = iter.next();
 
-                                String titulo = lib.getTitulo().toLowerCase();
+                                if ("titulo".equalsIgnoreCase(selectedValue)) {
+                                    opcion = lib.getTitulo().toLowerCase();
+                                } else if ("autor".equalsIgnoreCase(selectedValue)) {
+                                    opcion = lib.getAutor().toLowerCase();
+                                } else if ("codigo".equalsIgnoreCase(selectedValue)) {
+                                    opcion = lib.getCodigo().toLowerCase();
+                                }
                                 String palabra = nombuscar.toLowerCase();
 
                                 boolean contieneSubcadenas = true;
                                 for (int i = 1; i <= palabra.length(); i++) {
                                     String subcadena = palabra.substring(0, i);
-                                    if (!titulo.startsWith(subcadena)) {
+                                    if (!opcion.startsWith(subcadena)) {
                                         contieneSubcadenas = false;
                                         break;
                                     }
@@ -186,20 +195,27 @@
                                 }
 
                             }
-                           
+
                         } else {
                             System.err.println("Error nada");
                         }
                     %>
 
-
-
-
-
-
-
-                </table>
+            </table>
 
             </div>
+            <div class="container-footer">
+                <footer class="footer">
+                    <h4>Copyright ? 2023 - Developed by Brayan Barco, 
+                        Sergio Delgado, Kevin Caballero 
+                        - Programa de Ingenier?a de Sistemas 
+                        - UFPS - Todos los Derechos Reservados</h4>
+
+                </footer>
+            </div>
+            <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+            <script src="js/script_barra_busqueda.js"></script>
     </body>
 </html>

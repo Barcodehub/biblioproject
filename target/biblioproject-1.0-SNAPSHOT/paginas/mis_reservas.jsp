@@ -16,7 +16,7 @@
         <title>Biblioteca-UFPS</title>
         <script src="https://kit.fontawesome.com/41bcea2ae3.js" crossorigin="anonymous"></script>
         <script src="../js/script_reserva.js"></script>
-
+        
         <link rel="stylesheet" href="../css/style_index_barra_busqueda.css">
         <link rel="stylesheet" href="../css/index_barra_busqueda.css">
         <link rel="stylesheet" href="../css/reservas.css">
@@ -104,10 +104,12 @@
 
             <div class="container-footer">
 
-                <footer>
-                    <h4>Brayan Alexander Barco Cardenas - Todos los Derechos Reservados</h4>
-                    <h4>Kevin Arturo Caballero Cano - Todos los Derechos Reservados</h4>
-                    <h4>Sergio Andres Delgado Barrera - Todos los Derechos Reservados</h4>
+                <footer class="footer">
+                    <h4>Copyright © 2023 - Developed by Brayan Barco, 
+                        Sergio Delgado, Kevin Caballero 
+                        - Programa de Ingeniería de Sistemas 
+                        - UFPS - Todos los Derechos Reservados</h4>
+                    
                 </footer>
 
             </div>

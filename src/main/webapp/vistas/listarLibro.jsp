@@ -31,26 +31,8 @@
                <form class="form">
                       
            <a class="btn btn-success" href="/biblioproject/vistas/addLibro.jsp">Agregar Nuevo</a>
-                <input class="" type="text" name="txtbuscar" >
-                <input class="btn btn" type="submit" value="Buscar" >
             </form> 
-                
-              <%
-                  String nombuscar=request.getParameter("txtbuscar");
-                  if(nombuscar != null){
-                 Conexion con=new Conexion();
-                Statement smt;
-                ResultSet rs;
-                  smt = con.getConnection().createStatement();
-                  rs = smt.executeQuery("select * from libro where Titulo LIKE" + "'%"+nombuscar+"%'");
-                  }else{
-                  System.out.println("Error");
-                  }
-                  %>
-                
-                
-                
-                
+               
             </div>
             
             

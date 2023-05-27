@@ -10,10 +10,10 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
       <title>Login and register</title>
+      <link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.0/normalize.css" />
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-        
-    <link rel="stylesheet" href="css/styles.css">
+     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
     
@@ -38,11 +38,11 @@
                 </div>
                 
                 <div class="form-group">
-                    <label>Nombres:</label>
+                    <label>Nombre de Usuario:</label>
                     <input class="form-control" type="text" name="txtnom" placeholder="Ingrese Nombres">
                 </div>
 
-           <input class="btn btn-danger btn-block" type="submit" name="accion" value="Ingresar">
+           <input class="btn btn-primary bottom-right btn-block" type="submit" name="accion" value="Ingresar">
            
            <a class="btn btn-danger btn-block" href="register.jsp">Registrarse</a>
                 
