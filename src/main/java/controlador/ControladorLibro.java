@@ -27,7 +27,7 @@ public class ControladorLibro extends HttpServlet {
     Libro l=new Libro();
     int r;
     
-    String listar="vistas/listarLibro.jsp";
+    String listar="Principal.jsp";
     String add="vistas/addlibro.jsp";
     String edit="vistas/editLibro.jsp";
     int id;
@@ -76,7 +76,7 @@ public class ControladorLibro extends HttpServlet {
             String autor=request.getParameter("txtautor");
             String codigo=request.getParameter("txtcodigo");
             String fechaStr = request.getParameter("txtfecha"); // Supongamos que el parámetro se llama "txtfecha"
-
+            
             
             
     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -89,8 +89,7 @@ fecha = new Date(dateFormat.parse(fechaStr).getTime());
     } catch (ParseException e) {
         System.out.println("errorrrororororor");
     }
-            
-            
+        
             
             l.setTitulo(titulo);
             l.setAutor(autor);
@@ -127,13 +126,16 @@ fecha = new Date(dateFormat.parse(fechaStr).getTime());
     }
            
             
-            
+             int copias=Integer.parseInt(request.getParameter("txtcopias"));
+            int prestados=Integer.parseInt(request.getParameter("txtprestados"));
             
             l.setId(id);
             l.setTitulo(titulo);
             l.setAutor(autor);
             l.setCodigo(codigo);
             l.setFecha(fecha);
+            l.setCopias(copias);
+            l.setPrestados(prestados);
             dao.edit(l);
             acceso=listar;
         }

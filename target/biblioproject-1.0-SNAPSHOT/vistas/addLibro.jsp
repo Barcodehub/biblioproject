@@ -33,7 +33,6 @@
                     <input class="form-control campo" type="date" name="txtfecha"><br>
                     
                     
-                    
                     <input class="btn btn-primary" type="submit" name="accion" value="Agregar">
                     <a href="/biblioproject/vistas/listarLibro.jsp">Regresar</a>
                 </form>

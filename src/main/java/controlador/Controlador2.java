@@ -26,7 +26,7 @@ public class Controlador2 extends HttpServlet {
     Persona p=new Persona();
     int r;
 //    vistas/listar.jsp
-    String listar="/vistas/listar.jsp";
+    String listar="Principal.jsp";
     String add="vistas/add.jsp";
     String edit="vistas/edit.jsp";
     int id;

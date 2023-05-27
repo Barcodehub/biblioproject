@@ -42,6 +42,9 @@ public class LibroDAO implements  CRUDLIBRO{
                 lib.setAutor(rs.getString("Autor"));
                 lib.setCodigo(rs.getString("Codigo"));
                 lib.setFecha(rs.getDate("Fecha"));
+                lib.setCopias(rs.getInt("copias"));
+                lib.setPrestados(rs.getInt("prestados"));
+                lib.disponiblebook(lib.getCopias(), lib.getPrestados());
                list.add(lib);
             }
         } catch (Exception e) {
@@ -62,6 +65,9 @@ public class LibroDAO implements  CRUDLIBRO{
                 p.setAutor(rs.getString("Autor"));
                 p.setCodigo(rs.getString("Codigo")); 
                 p.setFecha(rs.getDate("Fecha"));
+                p.setCopias(rs.getInt("copias"));
+                p.setPrestados(rs.getInt("prestados"));
+                p.disponiblebook(p.getCopias(), p.getPrestados());
             }
         } catch (Exception e) {
         }
@@ -88,7 +94,7 @@ public class LibroDAO implements  CRUDLIBRO{
 
     @Override
     public boolean edit(Libro lib) {
-        String sql="update libro set Titulo='"+lib.getTitulo()+"',Autor='"+lib.getAutor()+"',Codigo='"+lib.getCodigo()+"',Fecha='"+lib.getFecha()+"'where Id="+lib.getId();
+        String sql="update libro set Titulo='"+lib.getTitulo()+"',Autor='"+lib.getAutor()+"',Codigo='"+lib.getCodigo()+"',Fecha='"+lib.getFecha()+"',copias='"+lib.getCopias()+"',prestados='"+lib.getPrestados()+"'where Id="+lib.getId();
         try {
             
             //new java.sql.Date(lib.getFecha()t().getTime()));

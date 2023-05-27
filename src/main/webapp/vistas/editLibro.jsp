@@ -38,6 +38,13 @@
                     
                     Fecha: <br>
                     <input class="form-control" type="date" name="txtfecha" value="<%= p.getFecha()%>"><br>
+                    
+                    Copias: <br>
+                    <input class="form-control" type="text" name="txtcopias" value="<%= p.getCopias()%>"><br>
+                    
+                    <!-- PENDIENTE A QUITAR, EL PRESTADO SOLO SE EDITA DESDE LAS RESERVAS CON UN METODO QUE RESTE -->
+                    Prestados: <br>
+                    <input class="form-control" type="text" name="txtprestados" value="<%= p.getPrestados()%>"><br>
                 
                 
                 

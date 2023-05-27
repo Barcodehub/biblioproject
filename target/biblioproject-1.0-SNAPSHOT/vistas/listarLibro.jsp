@@ -47,6 +47,9 @@
                         <th class="text-center">AUTOR</th>
                         <th class="text-center">CODIGO</th>
                         <th class="text-center">FECHA</th>
+                        <th class="text-center">COPIAS</th>
+                        <th class="text-center">PRESTADOS</th>
+                        <th class="text-center">DISPONIBLES</th>
                     </tr>
                 </thead>
                 <%
@@ -65,6 +68,9 @@
                         <td class="text-center"><%= lib.getAutor()%></td>
                         <td class="text-center"><%= lib.getCodigo()%></td>
                         <td><%= lib.getFecha()%></td>
+                        <td class="text-center"><%= lib.getCopias()%></td>
+                        <td class="text-center"><%= lib.getPrestados()%></td>
+                        <td class="text-center"><%= lib.disponiblebook(lib.getCopias(), lib.getPrestados())%></td>
                         <td class="text-center">
                             <a class="btn btn-warning" href="../ControladorLibro?accion=editar&id=<%= lib.getId()%>">Editar</a>
                             <a class="btn btn-danger" href="../ControladorLibro?accion=eliminar&id=<%= lib.getId()%>">Remove</a>

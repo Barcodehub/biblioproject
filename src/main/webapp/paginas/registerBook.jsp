@@ -107,7 +107,6 @@
                     <input class="form-control" type="date" name="txtfecha"><br>
                     
                     
-                    
                     <input class="btn btn-primary" type="submit" name="accion" value="Agregar">
                     <a href="../Principal.jsp">Regresar</a>
                 </form>

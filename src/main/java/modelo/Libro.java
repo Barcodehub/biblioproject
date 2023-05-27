@@ -17,7 +17,10 @@ public class Libro {
     String autor;
     String codigo;
     Date fecha;
-
+    int copias;
+    int prestados;
+    int disponibles = 0;
+    
     public Libro() {
     }
 
@@ -27,6 +30,16 @@ public class Libro {
         this.autor = autor;
         this.codigo = codigo;
         this.fecha = fecha;
+    }
+
+    public Libro(int id, String titulo, String autor, String codigo, Date fecha, int copias, int prestados) {
+        this.id = id;
+        this.titulo = titulo;
+        this.autor = autor;
+        this.codigo = codigo;
+        this.fecha = fecha;
+        this.copias = copias;
+        this.prestados = prestados;
     }
 
     public int getId() {
@@ -69,7 +82,31 @@ public class Libro {
         this.fecha = fecha;
     }
 
-   
+    public int getCopias() {
+        return copias;
+    }
+
+    public void setCopias(int copias) {
+        this.copias = copias;
+    }
+
+    public int getPrestados() {
+        return prestados;
+    }
+
+    public void setPrestados(int prestados) {
+        this.prestados = prestados;
+    }
+
+    public int disponiblebook(int copias, int prestados){
+//        this.copias = copias;
+//        this.prestados = prestados;
+        disponibles = copias - prestados;
+        
+        return disponibles;
+        
+    }
+    
     
     
     

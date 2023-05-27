@@ -34,7 +34,7 @@
                 Correo: <br>
                 <input class="form-control" type="text" name="txtCorreo" value="<%= p.getCorreo()%>"><br>
                 Password: <br>
-                <input class="form-control" type="text" name="txtPass" value="<%= p.getPass()%>"><br>
+                <input class="form-control" type="password" name="txtPass" value="<%= p.getPass()%>"><br>
                 
                 <input type="hidden" name="txtid" value="<%= p.getId()%>">
                 <input class="btn btn-primary" type="submit" name="accion" value="Actualizar"> 
