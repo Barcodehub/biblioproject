@@ -92,7 +92,33 @@ public class PersonaDAO implements Validar, CRUD{
     
     
     
+        public int validarCorreo(Persona per) {
+        int r =0; 
+        String sql ="Select * from persona where Correo=?";
+        try{
+            con=cn.getConnection();
+            ps=con.prepareStatement(sql);
+            ps.setString(1, per.getCorreo());
+            rs=ps.executeQuery();
+            
+        if (rs.next()) {
     
+        r = r + 1;
+        per.setCorreo(rs.getString("Correo"));
+    
+        }    
+                   
+            if(r==1){
+                return 1;
+            }else{
+                return 0;
+            }
+    
+        }catch(Exception e){
+            return 0;
+        }
+        
+    }
     
     
 
@@ -161,6 +187,19 @@ public class PersonaDAO implements Validar, CRUD{
         }
         return false;
     }
+      public boolean editPass(Persona per) {
+        String sql="update persona set Password='"+hashPassword(per.getPass())+"'where Id="+per.getId();
+        try {
+            System.out.println("entro y actualizo");
+            con=cn.getConnection();
+            ps=con.prepareStatement(sql);
+            ps.executeUpdate();
+        } catch (Exception e) {
+        }
+        return false;
+    }
+    
+    
 
     @Override
     public boolean eliminar(int id) {

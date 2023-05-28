@@ -45,7 +45,8 @@
            <input class="btn btn-primary bottom-right btn-block" type="submit" name="accion" value="Ingresar">
            
            <a class="btn btn-danger btn-block" href="register.jsp">Registrarse</a>
-                
+           <br>
+           <a class="" href="validarCorreo.jsp">Olvidaste tu contraseña</a>
                
             </form>
         </div>

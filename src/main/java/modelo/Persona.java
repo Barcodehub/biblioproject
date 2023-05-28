@@ -25,6 +25,10 @@ public class Persona {
         this.pass = pass;
     }
 
+    public Persona(String correo) {
+        this.correo = correo;
+    }
+
     
     public int getId() {
         return id;
@@ -57,6 +61,7 @@ public class Persona {
     public void setPass(String pass) {
         this.pass = pass;
     }
+    
     
     
 }
