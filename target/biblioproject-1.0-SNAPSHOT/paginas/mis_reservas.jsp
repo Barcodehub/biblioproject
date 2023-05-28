@@ -9,6 +9,19 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <jsp:useBean id="ldao" class="modeloDAO.LibroDAO" scope="session"/>
 <jsp:useBean id="dao" class="modeloDAO.ReservaDao" scope="session"/>
+<%
+    if(request.getParameter("idLibro")!=null){
+        String idLibro = request.getParameter("idLibro");
+        String idUsuario = request.getParameter("idUsuario");
+        
+        Reserva rvCancel=new Reserva();
+        
+        rvCancel.setLibroId(Integer.parseInt(idLibro));
+        rvCancel.setUsuarioId(Integer.parseInt(idUsuario));
+        
+        dao.cancelarReserva(rvCancel);
+    }    
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -16,12 +29,12 @@
         <title>Biblioteca-UFPS</title>
         <script src="https://kit.fontawesome.com/41bcea2ae3.js" crossorigin="anonymous"></script>
         <script src="../js/script_reserva.js"></script>
-        
+
         <link rel="stylesheet" href="../css/style_index_barra_busqueda.css">
         <link rel="stylesheet" href="../css/index_barra_busqueda.css">
         <link rel="stylesheet" href="../css/reservas.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-   
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
         <meta name="viewport"
               content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 
@@ -48,24 +61,24 @@
                             <li><a href="../paginas/registerBook.jsp">
                                     <i class="fas fa-heart"></i> Registrar Libro</a>
                             </li>
-                            
-                            <li>
-                            <div class="dropdown">
-                                <a style="color: gray" href="#" class="dropdown-toggle" data-toggle="dropdown">Cerrar Session </a>
 
-                                <div class="dropdown-menu text-center">
-                                    <a><img src="../img/R.png" height="80" width="80"/> </a><br>
-                                    <a>${nom}</a>
-                                    <a>${correo}</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a href="../Controlador?accion=Salir" class="dropdown-item">Salir</a>
+                            <li>
+                                <div class="dropdown">
+                                    <a style="color: gray" href="#" class="dropdown-toggle" data-toggle="dropdown">Cerrar Session </a>
+
+                                    <div class="dropdown-menu text-center">
+                                        <a><img src="../img/R.png" height="80" width="80"/> </a><br>
+                                        <a>${nom}</a>
+                                        <a>${correo}</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a href="../Controlador?accion=Salir" class="dropdown-item">Salir</a>
+                                    </div>
                                 </div>
-                            </div>
-                        </li>
+                            </li>
                         </ul>
                     </nav>
                 </div>
-               
+
             </div>
             <div id="icon-menu">
                 <i class="fas fa-bars"></i>
@@ -85,17 +98,25 @@
                     <p>Descubre que libros deseas rentar y pide la autorizacion a la biblioteca UFPS</p>
                 </div>
             </div>
-
             <div class="list">
                 <strong>Mis libros reservados</strong>
-                <%ArrayList<Reserva> rvList=dao.listarReserva(session.getAttribute("correo").toString());%>
+                <%ArrayList<Reserva> rvList = dao.listarReserva(session.getAttribute("correo").toString());%>
                 <ol class="alternating-colors" id="list">
-                    <%for(Reserva rv : rvList){
-                        Libro lb=ldao.list(rv.getLibroId());%>
-                    <li>
-                        <strong><%= lb.getTitulo() %></strong>
-                        <p>Autor: <%= lb.getAutor()%><br>Fecha de Vencimiento: <%= rv.getFechaLimite().toString()%></p>
-                        <button type="button" onclick="toHideAndAlert(0)">Cancelar Reserva</button>
+                    <%for (Reserva rv : rvList) {
+                            Libro lb = ldao.list(rv.getLibroId());%>
+                    <li><div class="row">
+                            <div class="column1">
+                                <strong><%= lb.getTitulo()%></strong>
+                                <p>Autor: <%= lb.getAutor()%><br>Fecha de Vencimiento: <%= rv.getFechaLimite().toString()%></p>
+                            </div>
+                            <div class="column2">
+                                <form id="reservasForm" name="reservasForm" action="mis_reservas.jsp" method="post">
+                                    <input type="hidden" value="<%=rv.getLibroId()%>" id="idLibro" name="idLibro">
+                                    <input type="hidden" value="<%=rv.getUsuarioId()%>" id="idUsuario" name="idUsuario">
+                                    <input type="submit" value="Cancelar" class="btnx">
+                                </form>
+                            </div>
+                        </div>
                     </li>
                     <%}%>
                 </ol>
@@ -105,11 +126,11 @@
             <div class="container-footer">
 
                 <footer class="footer">
-                    <h4>Copyright © 2023 - Developed by Brayan Barco, 
-                        Sergio Delgado, Kevin Caballero 
-                        - Programa de Ingeniería de Sistemas 
-                        - UFPS - Todos los Derechos Reservados</h4>
-                    
+                    Copyright © 2023 - Developed by Brayan Barco, 
+                    Sergio Delgado, Kevin Caballero 
+                    - Programa de Ingeniería de Sistemas 
+                    - UFPS - Todos los Derechos Reservados</h4>
+
                 </footer>
 
             </div>
