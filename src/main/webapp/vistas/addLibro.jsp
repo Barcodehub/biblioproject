@@ -32,6 +32,9 @@
                     Fecha: <br>
                     <input class="form-control campo" type="date" name="txtfecha"><br>
                     
+                    Copias: <br>
+                    <input class="form-control campo" type="number" name="txtcopias"><br>
+                    
                     
                     <input class="btn btn-primary" type="submit" name="accion" value="Agregar">
                     <a href="/biblioproject/vistas/listarLibro.jsp">Regresar</a>

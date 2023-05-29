@@ -9,6 +9,8 @@ import java.io.PrintWriter;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Iterator;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -91,11 +93,33 @@ fecha = new Date(dateFormat.parse(fechaStr).getTime());
         System.out.println("errorrrororororor");
     }
         
+            int copias=Integer.parseInt(request.getParameter("txtcopias"));
+            
+            
+            
+              LibroDAO dao = new LibroDAO();
+                    List<Libro> list = dao.listar();
+                    Iterator<Libro> iter = list.iterator();
+                    Libro lib = null;
+
+                    while (iter.hasNext()) {
+                        lib = iter.next();
+                        
+                        if (codigo.equals(lib.getCodigo())) {
+//                            
+                            System.out.println("ERROR, ESE CODIGO DE LIBRO YA ESTÁ SIENDO USADO POR OTRO");
+                            //----------------------
+                        }
+                    }
+            
+            
+            
             
             l.setTitulo(titulo);
             l.setAutor(autor);
             l.setCodigo(codigo);
             l.setFecha(fecha);
+            l.setCopias(copias);
             dao.add(l);
             acceso=listar;
         }
@@ -129,6 +153,10 @@ fecha = new Date(dateFormat.parse(fechaStr).getTime());
             
              int copias=Integer.parseInt(request.getParameter("txtcopias"));
             int prestados=Integer.parseInt(request.getParameter("txtprestados"));
+            
+            
+            
+            
             
             if(prestados <= copias){
                 l.setId(id);

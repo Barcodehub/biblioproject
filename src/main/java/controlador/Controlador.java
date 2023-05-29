@@ -107,9 +107,17 @@ public class Controlador extends HttpServlet {
                     //llevamos para que el usuario ingrese el codigo de autentificacion
                     request.getRequestDispatcher("editPass.jsp").forward(request, response);
 
+                }else{
+                    System.out.println("LAS CONTRASEÑAS NO COINCIDEN - VUELVE A INTENTARLO");
+                    //----------------------
+                    request.getRequestDispatcher("validarCorreo.jsp").forward(request, response);
                 }
 
 //               
+            }else{
+                System.out.println("CORREO INCORRECTO O NO EXISTE/NO REGISTRADO - VUELEVE A INTENTARLO");
+                //---------------------------
+                request.getRequestDispatcher("validarCorreo.jsp").forward(request, response);
             }
 
         } else if (accion.equals("ValidarCodigo")) {
@@ -124,6 +132,10 @@ public class Controlador extends HttpServlet {
                 p.setPass(pass);
                 dao.editPass(p);
 request.getRequestDispatcher("index.jsp").forward(request, response);
+            }else{
+                System.out.println("CODIGO DE AUTENTIFICACION INCORRECTO - VUELVE A INTENTARLO");
+                //---------------------------
+                request.getRequestDispatcher("index.jsp").forward(request, response);
             }
 
             
