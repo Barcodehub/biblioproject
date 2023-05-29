@@ -76,7 +76,7 @@ public class LibroDAO implements  CRUDLIBRO{
 // String sql="insert into libro(Titulo, Autor, Codigo, Fecha)values('"+lib.getTitulo()+"','"+lib.getAutor()+"','"+lib.getCodigo()+"','"+new java.sql.Date(lib.getFecha().getTime())+"')";
     @Override
     public boolean add(Libro lib) {
-    String sql="insert into libro(Titulo, Autor, Codigo, Fecha)values('"+lib.getTitulo()+"','"+lib.getAutor()+"','"+lib.getCodigo()+"','"+new java.sql.Date(lib.getFecha().getTime())+"')";
+    String sql="insert into libro(Titulo, Autor, Codigo, Fecha, copias)values('"+lib.getTitulo()+"','"+lib.getAutor()+"','"+lib.getCodigo()+"','"+new java.sql.Date(lib.getFecha().getTime())+"','"+lib.getCopias()+"')";
 //         String sql = "INSERT INTO libro (Titulo, Autor, Codigo, Fecha) VALUES (?, ?, ?, ?)";
         
        try {

@@ -25,8 +25,10 @@
         
           
           
-        <h1>Reestablecer Contraseña</h1>
+        
 <!--        //-->
+<div class="container col-lg-3">
+    <h1>Reestablecer Contraseña</h1>
         <form action="Controlador">
         <div class="form-group">
                     <label>Escribe el Correo asociado a tu Cuenta: </label>
@@ -51,7 +53,7 @@
 if ambas passwords iguales
             if numeros aleatorio env al correo con el num escrito por el usuari-->
         </form>
-        
+        </div>
         
          <%
                 Conexion con = new Conexion();

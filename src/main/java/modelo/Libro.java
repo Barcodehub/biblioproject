@@ -5,6 +5,7 @@
 package modelo;
 
 import java.sql.Date;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -101,8 +102,10 @@ public class Libro {
     public int disponiblebook(int copias, int prestados){
 //        this.copias = copias;
 //        this.prestados = prestados;
-        disponibles = copias - prestados;
-        
+
+
+    disponibles = copias - prestados;
+
         return disponibles;
         
     }

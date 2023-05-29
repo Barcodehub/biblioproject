@@ -206,11 +206,11 @@
             </div>
             <div class="container-footer">
                 <footer class="footer">
-                    <h4>Copyright ? 2023 - Developed by Brayan Barco, 
+                    <h4>Copyright © 2023 - Developed by Brayan Barco, 
                         Sergio Delgado, Kevin Caballero 
-                        - Programa de Ingenier?a de Sistemas 
+                        - Programa de Ingeniería de Sistemas 
                         - UFPS - Todos los Derechos Reservados</h4>
-
+                    
                 </footer>
             </div>
             <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

@@ -29,7 +29,7 @@
                         <input class="form-control" type="text" name="txtnom"><br>
 
                         Correo: <br>
-                        <input class="form-control" type="text" name="txtCorreo"><br>
+                        <input class="form-control" type="email" name="txtCorreo"><br>
 
                         
                         Password: <br>

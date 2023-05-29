@@ -89,7 +89,7 @@
             </div>
 
             <!-- registrar libro -->
-
+            <br><br>
             <main class="contenedor sombra">
                 <h2 class="title">Registrar Libro</h2>
 
