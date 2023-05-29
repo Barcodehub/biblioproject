@@ -123,10 +123,19 @@ public class Controlador extends HttpServlet {
                 p.setId(contid);
                 p.setPass(pass);
                 dao.editPass(p);
-
+request.getRequestDispatcher("index.jsp").forward(request, response);
             }
 
-        } else {
+            
+            
+            
+            
+            
+        }  else if (accion.equals("Salir")) {
+            
+        request.getRequestDispatcher("index.jsp").forward(request, response);
+        
+        }else {
             //Correo ingresado incorrecto---vueleve a intenetarlo
             request.getRequestDispatcher("validarCorreo.jsp").forward(request, response);
 

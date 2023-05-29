@@ -14,6 +14,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.JOptionPane;
 import modelo.Libro;
 import modeloDAO.LibroDAO;
 
@@ -129,7 +130,8 @@ fecha = new Date(dateFormat.parse(fechaStr).getTime());
              int copias=Integer.parseInt(request.getParameter("txtcopias"));
             int prestados=Integer.parseInt(request.getParameter("txtprestados"));
             
-            l.setId(id);
+            if(prestados <= copias){
+                l.setId(id);
             l.setTitulo(titulo);
             l.setAutor(autor);
             l.setCodigo(codigo);
@@ -138,6 +140,15 @@ fecha = new Date(dateFormat.parse(fechaStr).getTime());
             l.setPrestados(prestados);
             dao.edit(l);
             acceso=listar;
+            }else{
+                //PRESTADOS NO PUEDE SER MAYOR AL NUMERO DE COPIAS DISPONIBLES
+                request.getRequestDispatcher("index.jsp").forward(request, response);
+       
+            }
+            
+            
+            
+            
         }
         else if(action.equalsIgnoreCase("eliminar")){
             id=Integer.parseInt(request.getParameter("id"));
