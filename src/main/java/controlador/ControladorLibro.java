@@ -9,6 +9,8 @@ import java.io.PrintWriter;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Iterator;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -16,7 +18,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.swing.JOptionPane;
 import modelo.Libro;
+import modelo.Persona;
+import modelo.Reserva;
 import modeloDAO.LibroDAO;
+import modeloDAO.PersonaDAO;
+import modeloDAO.ReservaDao;
 
 /**
  *
@@ -31,7 +37,17 @@ public class ControladorLibro extends HttpServlet {
     String listar="Principal.jsp";
     String add="vistas/addlibro.jsp";
     String edit="vistas/editLibro.jsp";
+    String reservar="vistas/reservar.jsp";
     int id;
+    int id2;
+    
+    PersonaDAO dao2=new PersonaDAO();
+    Persona p = new Persona();
+    
+    ReservaDao dao3=new ReservaDao();
+    Reserva res = new Reserva();
+    int contid=0;
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -91,11 +107,33 @@ fecha = new Date(dateFormat.parse(fechaStr).getTime());
         System.out.println("errorrrororororor");
     }
         
+            int copias=Integer.parseInt(request.getParameter("txtcopias"));
+            
+            
+            
+              LibroDAO dao = new LibroDAO();
+                    List<Libro> list = dao.listar();
+                    Iterator<Libro> iter = list.iterator();
+                    Libro lib = null;
+
+                    while (iter.hasNext()) {
+                        lib = iter.next();
+                        
+                        if (codigo.equals(lib.getCodigo())) {
+//                            
+                            System.out.println("ERROR, ESE CODIGO DE LIBRO YA ESTÁ SIENDO USADO POR OTRO");
+                            //----------------------
+                        }
+                    }
+            
+            
+            
             
             l.setTitulo(titulo);
             l.setAutor(autor);
             l.setCodigo(codigo);
             l.setFecha(fecha);
+            l.setCopias(copias);
             dao.add(l);
             acceso=listar;
         }
@@ -130,6 +168,10 @@ fecha = new Date(dateFormat.parse(fechaStr).getTime());
              int copias=Integer.parseInt(request.getParameter("txtcopias"));
             int prestados=Integer.parseInt(request.getParameter("txtprestados"));
             
+            
+            
+            
+            
             if(prestados <= copias){
                 l.setId(id);
             l.setTitulo(titulo);
@@ -155,6 +197,132 @@ fecha = new Date(dateFormat.parse(fechaStr).getTime());
             l.setId(id);
             dao.eliminar(id);
             acceso=listar;
+            
+            
+        
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+        }else if(action.equalsIgnoreCase("reservar")){
+            request.setAttribute("idlib",request.getParameter("id"));
+//            request.setAttribute("idper",request.getParameter("id2"));
+            
+           acceso=reservar;
+            
+            
+            
+            
+            
+        }else if(action.equalsIgnoreCase("reservar1")){
+            
+            System.out.println("entro");
+            id=Integer.parseInt(request.getParameter("txtid"));
+//            id2=Integer.parseInt(request.getParameter("txtid2"));
+            
+             String nom = request.getParameter("txtnom");
+            String correo = request.getParameter("txtCorreo");
+            String pass = request.getParameter("txtPass");
+            
+            System.out.println("nom: "+nom);
+                
+            
+            p.setNom(nom);
+            p.setCorreo(correo);
+            p.setPass(pass);
+            r = dao2.validar(p);
+            if (r == 1) {
+                request.getSession().setAttribute("nom", nom);
+                request.getSession().setAttribute("correo", correo);
+                request.getSession().setAttribute("pass", pass);
+//                request.getRequestDispatcher("Principal.jsp").forward(request, response); //me entra si valida, CRUCIAL PARA EL ROL ADMIN Y UDUARIO LUEGO
+
+             PersonaDAO dao = new PersonaDAO();
+                    List<Persona> list = dao.listar();
+                    Iterator<Persona> iter = list.iterator();
+                    Persona per = null;
+
+                    while (iter.hasNext()) {
+                        per = iter.next();
+                        
+                        if (correo.equals(per.getCorreo())) {
+                            
+//                            System.out.println("id es: " + contid);
+                            contid++;
+                        }
+                    }
+                        System.out.println("id persona es: "+contid);
+
+
+
+            } else {
+                request.getRequestDispatcher("index.jsp").forward(request, response);
+            }
+
+        
+
+id2=contid;
+
+
+
+
+
+            
+            String fechaStr = request.getParameter("txtfecha"); // Supongamos que el parámetro se llama "txtfecha"
+            
+            
+            
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    Date fecha = null;
+    try {
+         java.util.Date utilDate = dateFormat.parse(fechaStr);
+//    fecha = new Date(utilDate.getTime());
+// fecha = (Date) dateFormat.parse(fechaStr);
+fecha = new Date(dateFormat.parse(fechaStr).getTime());
+    } catch (ParseException e) {
+        System.out.println("errorrrororororor");
+    }
+        
+          
+            
+            
+            
+            res.setUsuarioId(id2);
+            res.setLibroId(id);
+            res.setFechaLimite(fecha);
+            res.setEstado("Pendiente");
+            
+            dao3.agregarReserva(res);
+            acceso=listar;
+            
+            
         }
         RequestDispatcher vista=request.getRequestDispatcher(acceso);
         vista.forward(request, response);

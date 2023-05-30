@@ -16,6 +16,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -29,7 +30,7 @@ public class PersonaDAO implements Validar, CRUD{
     PreparedStatement ps;
     ResultSet rs;
     Persona p=new Persona();
-    
+    String pass, pass2 = "";
     
     @Override
     public int validar(Persona per) {
@@ -52,11 +53,19 @@ public class PersonaDAO implements Validar, CRUD{
     String hashedEnteredPassword = hashPassword(enteredPassword);
 
     if (hashedEnteredPassword.equals(storedPassword)) {
-        r = r + 1;
+        r = r + 1; //sumar 1 pa acceder desde el login
         per.setNom(rs.getString("Nombres"));
         per.setCorreo(rs.getString("Correo"));
     }
-}            
+}        
+              
+         //sumar 2 pa editpass     
+              
+              
+              
+              
+              
+              
             if(r==1){
                 return 1;
             }else{
@@ -121,7 +130,8 @@ public class PersonaDAO implements Validar, CRUD{
     }
     
     
-
+ 
+   
 
 @Override
     public List listar() {

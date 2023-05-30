@@ -11,6 +11,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import modelo.Reserva;
 
 /**
@@ -31,7 +33,7 @@ public class ReservaDao {
                 ps.setDate(3, rv.getFechaLimite());
                 ps.setString(4, rv.getEstado());
                 ps.executeUpdate();
-                sql="UPDATE libro SET id=id+1 WHERE id="+rv.getLibroId();
+                sql="UPDATE libro SET prestados=prestados+1 WHERE id="+rv.getLibroId();
                 ps=cnx.prepareStatement(sql);
                 ps.executeUpdate();
                 return true;
@@ -42,6 +44,26 @@ public class ReservaDao {
         return false;
     }
 
+    public boolean cancelarReserva(Reserva rv){
+        try{
+            String sql= "UPDATE reserva SET estado='Cancelado' WHERE id_persona=? AND id_libro=?";
+            PreparedStatement ps=cnx.prepareStatement(sql);
+            ps.setInt(1, rv.getUsuarioId());
+            ps.setInt(2, rv.getLibroId());
+            int count=ps.executeUpdate();
+            if(count>0){
+                return true;
+            }else{
+                return false;
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return false;
+    }
+    
+    
+    
     public ArrayList<Reserva> listarReserva(String correo) {
         try {
             String sql = "SELECT Id FROM persona WHERE correo='" + correo + "'";
