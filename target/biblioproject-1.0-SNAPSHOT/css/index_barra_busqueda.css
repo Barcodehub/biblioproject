@@ -2,7 +2,6 @@
 
 .btnx{
     color: white;
-    margin-right: 0; 
     padding: 10px 10px;
     background: red;    
     border: 0;    
@@ -11,6 +10,16 @@
     font-weight: 500;    
     border-radius: 30px;
 }
+.button-disabled{
+    pointer-events: none;
+    color: white;
+    padding: 10px 10px;
+    background: #b8b8b8;    
+    border: 0;    
+    outline: none;    
+    cursor: pointer; font-size: 18px;    
+    font-weight: 500;    
+    border-radius: 30px;}
 
 .blog-container-cover{
     width: 100%;

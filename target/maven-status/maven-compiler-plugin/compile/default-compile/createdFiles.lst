@@ -12,5 +12,4 @@ modelo\Persona.class
 modeloDAO\ReservaDao.class
 modelo\Reserva.class
 controlador\Controlador.class
-.netbeans_automatic_build
 Interfaces\CRUDLIBRO.class

@@ -7,13 +7,27 @@
 
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.Statement"%>
+<%@page import="java.sql.Date" %> 
 <%@page import="Config.Conexion"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="modelo.Libro"%>
+<%@page import="modelo.Reserva"%>
 <%@page import="modeloDAO.LibroDAO"%>
-<%--<%@page contentType="text/html" pageEncoding="UTF-8"%>--%>
+<jsp:useBean id="rvDao" class="modeloDAO.ReservaDao" scope="session"/>
+<%
+    if(request.getParameter("idLibroReservar")!=null){
+        Reserva rv=new Reserva();
+        rv.setUsuarioId(rvDao.idUsuario(session.getAttribute("correo").toString()));
+        rv.setLibroId(Integer.parseInt(request.getParameter("idLibroReservar")));
+        rv.setFechaLimite(new Date(System.currentTimeMillis()+(3l*24l*3600l*1000l)));
+        rv.setEstado("Pendiente");
+        
+        rvDao.agregarReserva(rv);
+    }
+%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -134,6 +148,7 @@
                             <th class="text-center">AUTOR</th>
                             <th class="text-center">CODIGO</th>
                             <th class="text-center">FECHA</th>
+                            <th class="text-center">RESERVAR</th>
                         </tr>
                     </thead>
 
@@ -189,6 +204,19 @@
                             <td class="text-center"><%= lib.getAutor()%></td>
                             <td class="text-center"><%= lib.getCodigo()%></td>
                             <td><%= lib.getFecha()%></td>
+                            <td class="text-center">
+                                <%
+                                    Reserva rv=new Reserva();
+                                    rv.setUsuarioId(rvDao.idUsuario(session.getAttribute("correo").toString()));
+                                    rv.setLibroId(lib.getId());
+                                    boolean disponible=rvDao.LibroDisponible(rv);
+                                %>
+                                <form id="reservar" name="reservar" action="ConsultarLibro.jsp" method="post">
+                                    <input type="hidden" value="<%=lib.getId()%>" id="idLibroReservar" name="idLibroReservar">
+                                    <input type="submit" value="Resevar" 
+                                           <%if(disponible){%> class="btnx" <%}else{%>  class="button-disabled"  <%}%>>
+                                </form>
+                            </td>
                         </tr>
                     </tbody>
                     <%
@@ -206,9 +234,9 @@
             </div>
             <div class="container-footer">
                 <footer class="footer">
-                    <h4>Copyright © 2023 - Developed by Brayan Barco, 
+                    <h4>Copyright ï¿½ 2023 - Developed by Brayan Barco, 
                         Sergio Delgado, Kevin Caballero 
-                        - Programa de Ingeniería de Sistemas 
+                        - Programa de Ingenierï¿½a de Sistemas 
                         - UFPS - Todos los Derechos Reservados</h4>
                     
                 </footer>

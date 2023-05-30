@@ -24,36 +24,38 @@ public class ReservaDao {
     Connection cnx = new Conexion().getConnection();
 
     public boolean agregarReserva(Reserva rv) {
-        if (LibroDisponible(rv.getLibroId())) {
-            try {
-                String sql = "INSERT INTO reserva VALUES(?,?,?,?)";
-                PreparedStatement ps = cnx.prepareStatement(sql);
-                ps.setInt(1, rv.getLibroId());
-                ps.setInt(2, rv.getUsuarioId());
-                ps.setDate(3, rv.getFechaLimite());
-                ps.setString(4, rv.getEstado());
-                ps.executeUpdate();
-                sql="UPDATE libro SET prestados=prestados+1 WHERE id="+rv.getLibroId();
-                ps=cnx.prepareStatement(sql);
-                ps.executeUpdate();
-                return true;
-            } catch (SQLException ex) {
-                System.out.println(ex.getMessage());
-            }
+        try {
+            String sql = "INSERT INTO reserva VALUES(?,?,?,?)";
+            PreparedStatement ps = cnx.prepareStatement(sql);
+            ps.setInt(1, rv.getLibroId());
+            ps.setInt(2, rv.getUsuarioId());
+            ps.setDate(3, rv.getFechaLimite());
+            ps.setString(4, rv.getEstado());
+            ps.executeUpdate();
+            sql = "UPDATE libro SET prestados=prestados+1 WHERE id=" + rv.getLibroId();
+            ps = cnx.prepareStatement(sql);
+            ps.executeUpdate();
+            return true;
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
         }
+
         return false;
     }
 
-    public boolean cancelarReserva(Reserva rv){
-        try{
-            String sql= "UPDATE reserva SET estado='Cancelado' WHERE id_persona=? AND id_libro=?";
-            PreparedStatement ps=cnx.prepareStatement(sql);
+    public boolean cancelarReserva(Reserva rv) {
+        try {
+            String sql = "UPDATE reserva SET estado='Cancelado' WHERE id_persona=? AND id_libro=?";
+            PreparedStatement ps = cnx.prepareStatement(sql);
             ps.setInt(1, rv.getUsuarioId());
             ps.setInt(2, rv.getLibroId());
-            int count=ps.executeUpdate();
-            if(count>0){
+            int count = ps.executeUpdate();
+            sql = "UPDATE libro SET prestados=prestados-1 WHERE id=" + rv.getLibroId();
+            ps = cnx.prepareStatement(sql);
+            ps.executeUpdate();
+            if (count > 0) {
                 return true;
-            }else{
+            } else {
                 return false;
             }
         } catch (SQLException ex) {
@@ -61,20 +63,16 @@ public class ReservaDao {
         }
         return false;
     }
-    
+
     public ArrayList<Reserva> listarReserva(String correo) {
         try {
-            String sql = "SELECT Id FROM persona WHERE correo='" + correo + "'";
+            int usuarioID = idUsuario(correo);
+            String sql = "SELECT * FROM reserva WHERE id_persona= " + usuarioID + " AND estado='Pendiente'";
             PreparedStatement ps = cnx.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
-            rs.next();
-            int usuarioID=rs.getInt("Id");
-            sql = "SELECT * FROM reserva WHERE id_persona= " + usuarioID + " AND estado='Pendiente'";
-            ps = cnx.prepareStatement(sql);
-            rs = ps.executeQuery();
-            ArrayList<Reserva> rvList= new ArrayList<>();
-            while(rs.next()){
-                Reserva rv=new Reserva();
+            ArrayList<Reserva> rvList = new ArrayList<>();
+            while (rs.next()) {
+                Reserva rv = new Reserva();
                 rv.setLibroId(rs.getInt(1));
                 rv.setUsuarioId(rs.getInt(2));
                 rv.setFechaLimite(rs.getDate(3));
@@ -88,11 +86,33 @@ public class ReservaDao {
         return null;
     }
 
-    public boolean LibroDisponible(int libroId) {
+    public int idUsuario(String correo) {
         try {
-            String sql = "SELECT copias,prestados FROM libro WHERE id='" + libroId + "'";
+            String sql = "SELECT Id FROM persona WHERE correo='" + correo + "'";
             PreparedStatement ps = cnx.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
+            rs.next();
+            int usuarioID = rs.getInt("Id");
+            return usuarioID;
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return 0;
+    }
+
+    public boolean LibroDisponible(Reserva rv) {
+        try {
+            String sql = "SELECT * FROM reserva WHERE id_libro=? AND id_persona=? AND estado='Pendiente'";
+            PreparedStatement ps = cnx.prepareStatement(sql);
+            ps.setInt(1, rv.getLibroId());
+            ps.setInt(2, rv.getUsuarioId());
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()) {
+                return false;
+            }
+            sql = "SELECT copias,prestados FROM libro WHERE id=" + rv.getLibroId();
+            ps = cnx.prepareStatement(sql);
+            rs = ps.executeQuery();
             rs.next();
             if (rs.getInt("copias") > rs.getInt("prestados")) {
                 return true;
