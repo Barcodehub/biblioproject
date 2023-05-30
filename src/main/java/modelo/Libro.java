@@ -21,6 +21,7 @@ public class Libro {
     int copias;
     int prestados;
     int disponibles = 0;
+    int reservar=0;
     
     public Libro() {
     }
@@ -99,6 +100,9 @@ public class Libro {
         this.prestados = prestados;
     }
 
+    
+    
+    
     public int disponiblebook(int copias, int prestados){
 //        this.copias = copias;
 //        this.prestados = prestados;
@@ -110,7 +114,23 @@ public class Libro {
         
     }
     
+    public int reservarbook(int prestados){
+
+
+    reservar = prestados + 1;
+
+        return reservar;
+        
+    }
     
+    public int cancelarreservarbook(int prestados){
+
+
+    reservar = prestados - 1;
+
+        return reservar;
+        
+    }
     
     
 }

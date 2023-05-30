@@ -25,7 +25,7 @@ public class Controlador extends HttpServlet {
     Persona p = new Persona();
     int r;
     String editPass = "editPass.jsp";
-    String pass, pass2 = "";
+    String pass, pass2, pass1 = "";
     int codigoauth = 0;
     int contid = 0;
 
@@ -39,10 +39,22 @@ public class Controlador extends HttpServlet {
         String acceso = "";
         response.setContentType("text/html;charset=UTF-8");
         String accion = request.getParameter("accion");
+        
+        
+        
+        
         if (accion.equals("Ingresar")) {
             String nom = request.getParameter("txtnom");
             String correo = request.getParameter("txtCorreo");
             String pass = request.getParameter("txtPass");
+            
+            pass1=null;pass2=null;
+             pass1 = request.getParameter("txtPass1");
+             pass2 = request.getParameter("txtPass2");
+            
+            if(pass1==null && pass2==null){
+                
+            
             p.setNom(nom);
             p.setCorreo(correo);
             p.setPass(pass);
@@ -58,7 +70,67 @@ public class Controlador extends HttpServlet {
 
             
             
+            //sino es para ingresar al login entonces es para cambiar contraseña
+            }else{
+                
+            p.setNom(nom);
+            p.setCorreo(correo);
+            p.setPass(pass);
+            r = dao.validar(p);
+            if (r == 1) {
+                request.getSession().setAttribute("nom", nom);
+                request.getSession().setAttribute("correo", correo);
+                request.getSession().setAttribute("pass", pass);
+                
+                System.out.println("validado");
+                System.out.println("pass1 y pass2: "+pass1+"   "+pass2);
+                
+                if(pass1 == null ? pass2 == null : pass1.equals(pass2)){
+             
+             
+              PersonaDAO dao = new PersonaDAO();
+                    List<Persona> list = dao.listar();
+                    Iterator<Persona> iter = list.iterator();
+                    Persona per = null;
+
+                    while (iter.hasNext()) {
+                        per = iter.next();
+                        
+                        if (correo.equals(per.getCorreo())) {
+//                            System.out.println("id es: " + contid);
+                            contid++;
+                        }
+                    }
+             
+             
+            p.setId(contid);
+            p.setNom(nom);
+            p.setCorreo(correo);
+             p.setPass(pass1); //falta por hashear
+            dao.edit(p);
+            request.getRequestDispatcher("index.jsp").forward(request, response);
+                }else{
+                    System.out.println("Las contraseñas que escribiste no coinciden o estan vacias");
+                }
+                
+            } else {
+                System.out.println("Datos Incorrectos");
+                request.getRequestDispatcher("Principal.jsp").forward(request, response);
+            }
+                
+                
+            }
             
+            
+            
+            
+            
+            
+            
+            
+            
+            
+           
             
         } else if (accion.equals("ValidarCorreo")) {
             //si el correo existe en la BD

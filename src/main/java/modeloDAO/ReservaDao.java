@@ -24,6 +24,7 @@ public class ReservaDao {
     Connection cnx = new Conexion().getConnection();
 
     public boolean agregarReserva(Reserva rv) {
+<<<<<<< HEAD
         try {
             String sql = "INSERT INTO reserva VALUES(?,?,?,?)";
             PreparedStatement ps = cnx.prepareStatement(sql);
@@ -54,6 +55,20 @@ public class ReservaDao {
             ps = cnx.prepareStatement(sql);
             ps.executeUpdate();
             if (count > 0) {
+=======
+        if (LibroDisponible(rv.getLibroId())) {
+            try {
+                String sql = "INSERT INTO reserva VALUES(?,?,?,?)";
+                PreparedStatement ps = cnx.prepareStatement(sql);
+                ps.setInt(1, rv.getLibroId());
+                ps.setInt(2, rv.getUsuarioId());
+                ps.setDate(3, rv.getFechaLimite());
+                ps.setString(4, rv.getEstado());
+                ps.executeUpdate();
+                sql="UPDATE libro SET prestados=prestados+1 WHERE id="+rv.getLibroId();
+                ps=cnx.prepareStatement(sql);
+                ps.executeUpdate();
+>>>>>>> 71914fdcdb623ad45d763052510f37ff723fe4f5
                 return true;
             } else {
                 return false;
@@ -64,6 +79,26 @@ public class ReservaDao {
         return false;
     }
 
+    public boolean cancelarReserva(Reserva rv){
+        try{
+            String sql= "UPDATE reserva SET estado='Cancelado' WHERE id_persona=? AND id_libro=?";
+            PreparedStatement ps=cnx.prepareStatement(sql);
+            ps.setInt(1, rv.getUsuarioId());
+            ps.setInt(2, rv.getLibroId());
+            int count=ps.executeUpdate();
+            if(count>0){
+                return true;
+            }else{
+                return false;
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return false;
+    }
+    
+    
+    
     public ArrayList<Reserva> listarReserva(String correo) {
         try {
             int usuarioID = idUsuario(correo);

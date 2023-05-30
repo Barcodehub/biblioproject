@@ -3,10 +3,18 @@
     Created on : 19-may-2023, 14:05:37
     Author     : BRAYAN
 --%>
+<%@page import="modeloDAO.ReservaDao"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.Statement"%>
+<%@page import="Config.Conexion"%>
+<%@page import="java.util.Iterator"%>
+<%@page import="java.util.List"%>
+<%@page import="modeloDAO.LibroDAO"%>
 <%@page import="modelo.Libro"%>
 <%@page import="modelo.Reserva"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<<<<<<< HEAD
 <jsp:useBean id="ldao" class="modeloDAO.LibroDAO" scope="session"/>
 <jsp:useBean id="dao" class="modeloDAO.ReservaDao" scope="session"/>
 <%
@@ -22,6 +30,9 @@
         dao.cancelarReserva(rvCancel);
     }    
 %>
+=======
+
+>>>>>>> 71914fdcdb623ad45d763052510f37ff723fe4f5
 <!DOCTYPE html>
 <html>
     <head>
@@ -89,21 +100,100 @@
 
         <!--Portada-->
 
-        <div class="container-all" id="move-content">
-
-
+          <div class="container-all" id="move-content">
             <div class="blog-container-cover">
                 <div class="container-info-cover">
                     <h1>Prestacion de Libros</h1>
-                    <p>Descubre que libros deseas rentar y pide la autorizacion a la biblioteca UFPS</p>
+                    <p>
+                        Descubre que libros deseas rentar y pide la autorizaci?n a la
+                        biblioteca UFPS
+                    </p>
                 </div>
             </div>
+<<<<<<< HEAD
             <div class="list">
                 <strong>Mis libros reservados</strong>
                 <%ArrayList<Reserva> rvList = dao.listarReserva(session.getAttribute("correo").toString());%>
                 <ol class="alternating-colors" id="list">
                     <%for (Reserva rv : rvList) {
                             Libro lb = ldao.list(rv.getLibroId());%>
+=======
+        </div>
+
+
+
+
+
+           <br>
+            <br>
+
+       
+
+              <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th class="text-center">ID</th>
+                        <th class="text-center">TITULO</th>
+                        <th class="text-center">AUTOR</th>
+                        <th class="text-center">CODIGO</th>
+                        <th class="text-center">FECHA</th>
+                        <th class="text-center">DISPONIBLES</th>
+                    </tr>
+                </thead>
+                <%
+                    LibroDAO dao=new LibroDAO();
+                    List<Libro>list=dao.listar();
+                    Iterator<Libro>iter=list.iterator();
+                    Libro lib=null;
+                    while(iter.hasNext()){
+                        lib=iter.next();
+                    
+                %>
+                <tbody>
+                    <tr>
+                        <td class="text-center"><%= lib.getId()%></td>
+                        <td class="text-center"><%= lib.getTitulo()%></td>
+                        <td class="text-center"><%= lib.getAutor()%></td>
+                        <td class="text-center"><%= lib.getCodigo()%></td>
+                        <td class="text-center"><%= lib.getFecha()%></td>
+                        <td class="text-center"><%= lib.disponiblebook(lib.getCopias(), lib.getPrestados())%></td>
+                        <td class="text-center">
+                            <a class="btn btn-warning" href="../ControladorLibro?accion=reservar&id=<%= lib.getId()%>">Reservar</a>
+                        </td>
+                    </tr>
+                    <%}%>
+                </tbody>
+            </table>
+            
+            
+            
+            <%
+    
+    ReservaDao daoR=new ReservaDao();
+    
+    if(request.getParameter("idLibro")!=null){
+        String idLibro = request.getParameter("idLibro");
+        String idUsuario = request.getParameter("idUsuario");
+        
+        Reserva rvCancel=new Reserva();
+        
+        rvCancel.setLibroId(Integer.parseInt(idLibro));
+        rvCancel.setUsuarioId(Integer.parseInt(idUsuario));
+        
+        daoR.cancelarReserva(rvCancel);
+        
+        lib.cancelarreservarbook(lib.getPrestados());
+        
+    }    
+%>
+            
+         <div class="list">
+                <strong>Mis libros reservados</strong>
+                <%ArrayList<Reserva> rvList = daoR.listarReserva(session.getAttribute("correo").toString());%>
+                <ol class="alternating-colors" id="list">
+                    <%for (Reserva rv : rvList) {
+                            Libro lb = dao.list(rv.getLibroId());%>
+>>>>>>> 71914fdcdb623ad45d763052510f37ff723fe4f5
                     <li><div class="row">
                             <div class="column1">
                                 <strong><%= lb.getTitulo()%></strong>
@@ -120,7 +210,9 @@
                     </li>
                     <%}%>
                 </ol>
-            </div>
+            </div>   
+            
+            
 
 
             <div class="container-footer">
@@ -135,7 +227,7 @@
 
             </div>
 
-        </div>
+        
 
         <script src="../js/script_barra_busqueda.js"></script>
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

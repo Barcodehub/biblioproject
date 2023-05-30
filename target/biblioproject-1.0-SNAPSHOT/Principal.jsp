@@ -56,6 +56,7 @@
                                         <a><img src="img/R.png" height="80" width="80"/> </a><br>
                                         <a>${nom}</a>
                                         <a>${correo}</a>
+                                        <a href="paginas/cambiarPass.jsp">editar Contraseña</a>
                                         <div class="dropdown-divider"></div>
                                         <a href="Controlador?accion=Salir" class="dropdown-item">Salir</a>
                                     </div>
